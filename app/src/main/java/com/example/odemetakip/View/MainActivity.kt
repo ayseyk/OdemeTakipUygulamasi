@@ -1,27 +1,28 @@
 package com.example.odemetakip.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.odemetakip.BLL.RCV.OdemeTipiAdapter
 import com.example.odemetakip.BLL.OdemeTipiLogic
 import com.example.odemetakip.Model.OdemeTipi
 import com.example.odemetakip.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
+    var oTipiList = ArrayList<OdemeTipi>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeViews()
+        initializeEvents()
         setDefaults()
 
-        binding.btnOdemeTipiEkle.setOnClickListener{
+        /*binding.btnOdemeTipiEkle.setOnClickListener{
             bunonaBastı()
-        }
-
-
+        }*/
     }
 
     private fun initializeViews() {
@@ -31,17 +32,43 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvTipList.layoutManager = layoutManager
-
-       // binding.rvList.adapter = ResimAdapter(this, uriList, ::itemClick, ::itemLongClick)
+    }
+    private fun initializeEvents(){
+        binding.btnOdemeTipiEkle.setOnClickListener {
+            yeniTipEkle()
+        }
     }
     private fun setDefaults() {
-        //binding.rvList.adapter = ResimAdapter(this, uriList, ::itemClick, ::itemLongClick)
+        binding.rvTipList.adapter = OdemeTipiAdapter(this, oTipiList, ::odemeTipiItemClick,
+            ::yeniKayitEkle)
+        oTipiList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
+    }
+    fun odemeTipiItemClick(position : Int)
+    {
+        var intent = Intent(this, DetayGoruntule::class.java)
+        intent.putExtra("odemeTipi", oTipiList.get(position))
+        resultLauncher.launch(intent)
+    }
+    fun yeniKayitEkle(position: Int)
+    {
+
+    }
+    fun yeniTipEkle(){
+        var intent = Intent(this, OdemeTipiEkle::class.java)
+        resultLauncher.launch(intent)
+    }
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            oTipiList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
+            binding.rvTipList.adapter!!.notifyDataSetChanged()
+        }
+
     }
 
 
 
 
-    fun bunonaBastı() {
+    /*fun bunonaBastı() {
 
         var y = OdemeTipi()
         y.Baslik = "Su faturası"
@@ -55,12 +82,12 @@ class MainActivity : AppCompatActivity() {
         y.PeriyotGunu = 4
         OdemeTipiLogic.ekle(this, y)
 
-        var yList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
+        oTipiList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
 
 
         println()
 
-    }
+    }*/
 
 
 

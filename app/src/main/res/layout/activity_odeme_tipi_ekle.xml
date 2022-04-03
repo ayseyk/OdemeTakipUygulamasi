@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/etBaslik"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
@@ -57,18 +57,18 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spPeriyot"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/bar_background"
             android:paddingStart="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintEnd_toEndOf="@+id/etBaslik"
+            app:layout_constraintStart_toStartOf="@+id/etBaslik"
+            app:layout_constraintTop_toBottomOf="@+id/etBaslik" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/etPeriyotGunu"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
@@ -79,9 +79,9 @@
             android:inputType="number"
             android:paddingStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/spinner"
-            app:layout_constraintStart_toStartOf="@+id/spinner"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintEnd_toEndOf="@+id/spPeriyot"
+            app:layout_constraintStart_toStartOf="@+id/spPeriyot"
+            app:layout_constraintTop_toBottomOf="@+id/spPeriyot" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

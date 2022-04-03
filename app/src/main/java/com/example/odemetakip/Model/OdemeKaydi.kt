@@ -1,8 +1,9 @@
 package com.example.odemetakip.Model
 
+import java.io.Serializable
 import kotlin.properties.Delegates
 
-class OdemeKaydi {
+class OdemeKaydi : Serializable {
     var Id by Delegates.notNull<Int>()
     var OdemeTipi by Delegates.notNull<OdemeTipi>()
     var Tutar : Double? = null
