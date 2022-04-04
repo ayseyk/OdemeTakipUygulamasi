@@ -17,5 +17,10 @@ class OdemeTipiLogic {
         {
             return OdemeTipiOperation(context).odemeTipiGetir()
         }
+        fun guncelle(context : Context,odemeTipi : OdemeTipi)
+        {
+            val yo = OdemeTipiOperation(context)
+            yo.odemeTipiGuncelle(odemeTipi)
+        }
     }
 }

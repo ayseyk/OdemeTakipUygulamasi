@@ -10,6 +10,7 @@ import com.example.odemetakip.Model.OdemeTipi
 
 class OdemeKaydiOperation (context: Context) {
     var dbOpenHelper: DatabaseOpenHelper
+    var OdemeTakipDatabase: SQLiteDatabase? = null
 
     init {
         dbOpenHelper = DatabaseOpenHelper(context, "OdemeTakipDb", null, 1)
@@ -27,7 +28,7 @@ class OdemeKaydiOperation (context: Context) {
 
     fun odemeKaydiEkle(odemeKaydi: OdemeKaydi): Long {
         val cv = ContentValues()
-        cv.put("Id",odemeKaydi.Id)
+        //cv.put("Id",odemeKaydi.Id)
         cv.put("OdemeTipi", odemeKaydi.OdemeTipi.Id)
         cv.put("Tarih", odemeKaydi.Tarih)
         cv.put("Tutar", odemeKaydi.Tutar)
@@ -40,21 +41,23 @@ class OdemeKaydiOperation (context: Context) {
 
     fun odemeKaydiGuncelle(odemeKaydi: OdemeKaydi) {
         val cv = ContentValues()
-        cv.put("Id",odemeKaydi.Id)
+        //cv.put("Id",odemeKaydi.Id)
         cv.put("OdemeTipi", odemeKaydi.OdemeTipi.Id)
         cv.put("Tarih", odemeKaydi.Tarih)
         cv.put("Tutar", odemeKaydi.Tutar)
 
         open()
 
-        OdemeTakipDatabase!!.update("OdemeKaydi", cv, "Id = ?", arrayOf(odemeKaydi.Id.toString()))
+        OdemeTakipDatabase!!.update("OdemeKaydi", cv, "OdemeTipi = ? and Tarih = ?", arrayOf
+            (odemeKaydi.OdemeTipi.Id.toString(), odemeKaydi.Tarih))
 
         close()
     }
 
-    fun odemeKaydiSil(id: Int) {
+    fun odemeKaydiSil(odemeKaydi: OdemeKaydi) {
         open()
-        OdemeTakipDatabase!!.delete("OdemeKaydi", "Id = ?", arrayOf(id.toString()))
+        OdemeTakipDatabase!!.delete("OdemeKaydi", "OdemeTipi = ? and Tarih = ?", arrayOf
+            (odemeKaydi.OdemeTipi.Id.toString(), odemeKaydi.Tarih))
         close()
     }
 
@@ -64,10 +67,10 @@ class OdemeKaydiOperation (context: Context) {
         return OdemeTakipDatabase!!.rawQuery(sorgu, null)
     }
 
-    private fun tumOdemeKaydiGetirTip(odemeTipiId : Int): Cursor {
+    private fun tumOdemeKaydiGetirTip(odemeKaydi: OdemeKaydi): Cursor {
         val sorgu = "Select * from OdemeKaydi Where OdemeTipi = ?"
 
-        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(odemeTipiId.toString()))
+        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(odemeKaydi.OdemeTipi.Id.toString()))
     }
 
     @SuppressLint("Range")
@@ -81,7 +84,7 @@ class OdemeKaydiOperation (context: Context) {
         if (c.moveToFirst()) {
             do {
                 odemeKaydi = OdemeKaydi()
-                odemeKaydi.Id = c.getInt(0)//(c.getColumnIndex("Id"))
+               // odemeKaydi.Id = c.getInt(0)//(c.getColumnIndex("Id"))
                 odemeKaydi.OdemeTipi.Id = c.getInt(c.getColumnIndex("OdemeTipi"))
                 odemeKaydi.Tarih = c.getString(c.getColumnIndex("Tarih"))
                 odemeKaydi.Tutar = c.getDouble(c.getColumnIndex("Tutar"))

@@ -47,7 +47,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/bar_background"
             android:ems="10"
             android:hint="Ödeme Tipi"
             android:inputType="textPersonName"
@@ -56,7 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
+        <EditText
             android:id="@+id/spPeriyot"
             android:layout_width="0dp"
             android:layout_height="50dp"

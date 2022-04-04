@@ -11,10 +11,16 @@ class OdemeKaydiLogic {
     {
         fun ekle(context : Context, odemeKaydi : OdemeKaydi)
         {
-            val yo = OdemeKaydiOperation(context)
-            yo.odemeKaydiEkle(odemeKaydi)
+            if(odemeKaydi != null){
+                val yo = OdemeKaydiOperation(context)
+                yo.odemeKaydiEkle(odemeKaydi)
+            }
         }
-
+        fun sil(context : Context, odemeKaydi : OdemeKaydi)
+        {
+            val yo = OdemeKaydiOperation(context)
+            yo.odemeKaydiSil(odemeKaydi)
+        }
         fun tumOdemeKayitlariniGetir(context : Context) : ArrayList<OdemeKaydi>
         {
             return OdemeKaydiOperation(context).odemeKaydiGetir()

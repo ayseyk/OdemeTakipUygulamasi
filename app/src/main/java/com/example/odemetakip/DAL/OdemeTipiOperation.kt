@@ -6,11 +6,11 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.example.odemetakip.Model.OdemeTipi
-var OdemeTakipDatabase: SQLiteDatabase? = null
+
 
 class OdemeTipiOperation (context: Context) {
     var dbOpenHelper: DatabaseOpenHelper
-
+    var OdemeTakipDatabase: SQLiteDatabase? = null
     init {
         dbOpenHelper = DatabaseOpenHelper(context, "OdemeTakipDb", null, 1)
     }
@@ -50,9 +50,9 @@ class OdemeTipiOperation (context: Context) {
         close()
     }
 
-    fun odemeTipiSil(id: Int) {
+    fun odemeTipiSil(odemeTipi : OdemeTipi) {
         open()
-        OdemeTakipDatabase!!.delete("OdemeTipi", "Id = ?", arrayOf(id.toString()))
+        OdemeTakipDatabase!!.delete("OdemeTipi", "Id = ?", arrayOf(odemeTipi.Id.toString()))
         close()
     }
 
@@ -93,6 +93,30 @@ class OdemeTipiOperation (context: Context) {
 
         close()
         return oTipiList
+    }
+    @SuppressLint("Range")
+    fun odemeTipiBasliklariGetir() : ArrayList<String>
+    {
+        val oTipiBasliklariList = ArrayList<String>()
+        var odemeTipi : OdemeTipi
+
+        open()
+        var c : Cursor = tumOdemeTipleriGetir()
+
+        if (c.moveToFirst())
+        {
+            do {
+                odemeTipi = OdemeTipi()
+                odemeTipi.Id = c.getInt(0)//(c.getColumnIndex("Id"))
+                odemeTipi.Baslik = c.getString(c.getColumnIndex("Baslik"))
+                odemeTipi.Periyot= c.getString(c.getColumnIndex("Periyot"))
+                odemeTipi.PeriyotGunu= c.getInt(c.getColumnIndex("PeriyotGunu"))
+                oTipiBasliklariList.add(odemeTipi.Baslik)
+            }while (c.moveToNext())
+        }
+
+        close()
+        return oTipiBasliklariList
     }
 
 }

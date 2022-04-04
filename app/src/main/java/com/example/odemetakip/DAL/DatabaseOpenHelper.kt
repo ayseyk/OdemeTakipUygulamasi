@@ -10,10 +10,11 @@ class DatabaseOpenHelper(context: Context, name : String, factory: SQLiteDatabas
 
         val sorgu1 = "CREATE TABLE OdemeTipi(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "Baslik TEXT NOT NULL UNIQUE, " +
-                "OdemePeriyodu TEXT, PeriyotGunu INTEGER)"
+                "Periyot TEXT, PeriyotGunu INTEGER)"
         p0.execSQL(sorgu1)
 
-        val sorgu2 = "CREATE TABLE OdemeKaydi(/*Id INTEGER NOT NULL UNIQUE,*/OdemeTipi INTEGER NOT NULL, Tarih TEXT NOT NULL, " +
+        val sorgu2 = "CREATE TABLE OdemeKaydi(/*Id INTEGER NOT NULL UNIQUE,*/OdemeTipi INTEGER " +
+                "NOT NULL, Tarih TEXT NOT NULL, " +
                 "Tutar NUMERIC NOT NULL, FOREIGN KEY (OdemeTipi) REFERENCES OdemeTipi(Id))"
         p0.execSQL(sorgu2)
     }

@@ -19,10 +19,6 @@ class MainActivity : AppCompatActivity() {
         initializeViews()
         initializeEvents()
         setDefaults()
-
-        /*binding.btnOdemeTipiEkle.setOnClickListener{
-            bunonaBastı()
-        }*/
     }
 
     private fun initializeViews() {
@@ -39,19 +35,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun setDefaults() {
+        oTipiList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
         binding.rvTipList.adapter = OdemeTipiAdapter(this, oTipiList, ::odemeTipiItemClick,
             ::yeniKayitEkle)
-        oTipiList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
     }
     fun odemeTipiItemClick(position : Int)
     {
         var intent = Intent(this, DetayGoruntule::class.java)
         intent.putExtra("odemeTipi", oTipiList.get(position))
-        resultLauncher.launch(intent)
+        startActivity(intent)
     }
     fun yeniKayitEkle(position: Int)
     {
-
+        var intent = Intent(this, OdemeEkle::class.java)
+        startActivity(intent)
     }
     fun yeniTipEkle(){
         var intent = Intent(this, OdemeTipiEkle::class.java)
@@ -62,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             oTipiList = OdemeTipiLogic.tumOdemeTipleriGetir(this)
             binding.rvTipList.adapter!!.notifyDataSetChanged()
         }
-
     }
 
 

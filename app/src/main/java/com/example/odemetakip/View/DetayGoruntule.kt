@@ -1,8 +1,11 @@
 package com.example.odemetakip.View
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.odemetakip.BLL.OdemeKaydiLogic
 import com.example.odemetakip.BLL.OdemeTipiLogic
@@ -15,8 +18,8 @@ import com.example.odemetakip.databinding.ActivityDetayGoruntuleBinding
 
 class DetayGoruntule : AppCompatActivity() {
     lateinit var binding : ActivityDetayGoruntuleBinding
-    var oKaydiList = ArrayList<OdemeKaydi>()
-
+    internal var oKaydiList = ArrayList<OdemeKaydi>()
+    var odemeTipi : OdemeTipi? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeViews()
@@ -32,8 +35,11 @@ class DetayGoruntule : AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.rvOdemeKaydi.layoutManager = layoutManager
 
-        var odemeTipi = intent.getSerializableExtra("odemeTipi") as OdemeTipi
-        detayDoldur(odemeTipi)
+        odemeTipi = intent.getSerializableExtra("odemeTipi") as OdemeTipi
+        if(odemeTipi != null){
+            detayDoldur(odemeTipi!!)
+        }
+
     }
     private fun initializeEvents(){
         binding.btnOdemeEkle.setOnClickListener {
@@ -44,21 +50,42 @@ class DetayGoruntule : AppCompatActivity() {
         }
     }
     private fun setDefaults() {
-        binding.rvOdemeKaydi.adapter = OdemeKaydiAdapter(this, oKaydiList, ::odemeKaydiItemClick)
         oKaydiList = OdemeKaydiLogic.tumOdemeKayitlariniGetir(this)
+        binding.rvOdemeKaydi.adapter = OdemeKaydiAdapter(this, oKaydiList, ::odemeKaydiItemClick)
     }
     fun odemeKaydiItemClick(position : Int)
     {
-        //kaydı silecek
+        val adb : AlertDialog.Builder = AlertDialog.Builder(this)
+        adb.setTitle("Ödeme Kaydını Sil").setMessage("Ödeme kaydını silmek istediğinizden emin " +
+                "misiniz?").setPositiveButton("Sil",DialogInterface.OnClickListener { dialogInterface, i ->
+            OdemeKaydiLogic.sil(this, oKaydiList.get(position))
+            finish()
+        }).setNegativeButton("Vazgeç",null).show()
+
+        kayitListesiGüncelle()
+    }
+    fun kayitListesiGüncelle(){
+        oKaydiList = OdemeKaydiLogic.tumOdemeKayitlariniGetir(this)
+        binding.rvOdemeKaydi.adapter!!.notifyDataSetChanged()
     }
     fun yeniOdemeKaydiEkle()
     {
-        //ödeme ekle ekranına gidecek
+        var intent = Intent(this, OdemeEkle::class.java)
+        intent.putExtra("OdemeTipi", odemeTipi)
+        startActivity(intent)
     }
     fun tipiDuzenle(){
         //içindeki bilgilerle yeni ödeme tipi ekle ekranına gidecek
+        var intent = Intent(this, OdemeTipiEkle::class.java)
+        intent.putExtra("OdemeTipi", odemeTipi)
+        resultLauncher.launch(intent)
     }
-
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            odemeTipi = result.data!!.getSerializableExtra("odemeTipi") as OdemeTipi
+            detayDoldur(odemeTipi!!)
+        }
+    }
     fun detayDoldur(odemeTipi : OdemeTipi){
         binding.tvBaslik.text = odemeTipi.Baslik
         binding.tvPeriyot.text = odemeTipi.Periyot
