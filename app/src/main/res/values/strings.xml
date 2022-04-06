@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">OdemeTakip</string>
     <string name="odemeEkle">Ödeme Ekle</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="odemeTipiEkle">Yeni Ödeme Tipi Ekle</string>
+    <string name="odemeGuncelle">Ödeme Tipini Düzenle</string>
+    <string name="odemeTipiDetay">Ödeme Tipi Detayı</string>
+    <string name="duzenle">Düzenle</string>
+    <string name="odemeGecmisi">Ödeme Geçmişi</string>
+    <string name="sil">Sil</string>
+
+    <string-array name="periyotlar">
+        <item>Periyot Seçiniz</item>
+        <item>Haftalık</item>
+        <item>Aylık</item>
+        <item>Yıllık</item>
+    </string-array>
+
 </resources>

@@ -5,18 +5,15 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.odemetakip.BLL.OdemeKaydiLogic
 import com.example.odemetakip.BLL.OdemeTipiLogic
 import com.example.odemetakip.BLL.RCV.OdemeKaydiAdapter
-import com.example.odemetakip.BLL.RCV.OdemeTipiAdapter
 import com.example.odemetakip.Model.OdemeKaydi
 import com.example.odemetakip.Model.OdemeTipi
 import com.example.odemetakip.databinding.ActivityDetayGoruntuleBinding
-
 
 class DetayGoruntule : AppCompatActivity() {
     lateinit var binding : ActivityDetayGoruntuleBinding
@@ -27,8 +24,7 @@ class DetayGoruntule : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeViews()
         initializeEvents()
-        setDefaults()
-
+        kayitListesiYenile()
     }
     private fun initializeViews() {
         binding = ActivityDetayGoruntuleBinding.inflate(layoutInflater)
@@ -53,35 +49,40 @@ class DetayGoruntule : AppCompatActivity() {
             tipiDuzenle()
         }
     }
-    private fun setDefaults() {
-        if(tipId!= null){
-            Toast.makeText(this,"null değil",Toast.LENGTH_LONG).show()
-        }
 
-        oKaydiList = OdemeKaydiLogic.tumOdemeKayitlariniGetir(this,tipId!!)//id ile getir.
-        //Toast.makeText(this,"${oKaydiList.first().Tarih}",Toast.LENGTH_LONG).show()
-        binding.rvOdemeKaydi.adapter = OdemeKaydiAdapter(this, oKaydiList, ::odemeKaydiItemClick)
+    @SuppressLint("SetTextI18n")
+    fun detayDoldur(odemeTipi : OdemeTipi) {
+        binding.tvBaslik.text = "Ödeme Başlığı: ${odemeTipi.Baslik}"
+
+        if (odemeTipi.Periyot == null) {
+            binding.tvPeriyot.text = "-"
+        } else {
+            binding.tvPeriyot.text = "Ödeme Periyodu: ${odemeTipi.Periyot}"
+        }
+        if (odemeTipi.PeriyotGunu == null || odemeTipi.Periyot == null || odemeTipi.PeriyotGunu == 0) {
+            binding.tvPeriyotGunu.text = "-"
+        } else {
+            binding.tvPeriyotGunu.text = "Ödeme Periyot Günü: ${odemeTipi.PeriyotGunu.toString()}"
+        }
     }
     fun odemeKaydiItemClick(position : Int)
     {
-        /*val adb : AlertDialog.Builder = AlertDialog.Builder(this)
-        adb.setTitle("Ödeme Kaydını Sil").setMessage("Ödeme kaydını silmek istediğinizden emin " +
-                "misiniz?").setPositiveButton("Sil",DialogInterface.OnClickListener { dialogInterface, i ->
+        val adb : AlertDialog.Builder = AlertDialog.Builder(this)
+        adb.setTitle("Ödeme Kaydını Sil").setMessage("Ödeme kaydını silmek istediğinizden emin misiniz?").setPositiveButton("Sil",DialogInterface.OnClickListener { dialogInterface, i ->
             OdemeKaydiLogic.sil(this, oKaydiList.get(position))
-            finish()
-        }).setNegativeButton("Vazgeç",null).show()
-
-        kayitListesiGüncelle()*/
+            kayitListesiYenile()})
+            .setNegativeButton("Vazgeç",null).show()
     }
-    fun kayitListesiGüncelle(){/*
-        oKaydiList = OdemeKaydiLogic.tumOdemeKayitlariniGetir(this)
-        binding.rvOdemeKaydi.adapter!!.notifyDataSetChanged()*/
+    fun kayitListesiYenile(){
+        oKaydiList = OdemeKaydiLogic.tumOdemeKayitlariniGetir(this,tipId!!)
+        binding.rvOdemeKaydi.adapter = OdemeKaydiAdapter(this, oKaydiList, ::odemeKaydiItemClick)
     }
     fun yeniOdemeKaydiEkle()
-    {/*
+    {
         var intent = Intent(this, OdemeEkle::class.java)
-        intent.putExtra("OdemeTipi", odemeTipi)
-        startActivity(intent)*/
+        intent.putExtra("tipIdKayit",tipId.toString())
+        intent.putExtra("detayEkranindan","true")
+        resultLauncher.launch(intent)
     }
     fun tipiDuzenle(){
         var intent = Intent(this, OdemeTipiEkle::class.java)
@@ -99,15 +100,13 @@ class DetayGoruntule : AppCompatActivity() {
         }
         if(result.resultCode == 0){
             var intent = Intent()
-            setResult(0)
+            setResult(0,intent)
             finish()
+        }
+        if(result.resultCode == 1){
+            kayitListesiYenile()
         }
 
     }
-    @SuppressLint("SetTextI18n")
-    fun detayDoldur(odemeTipi : OdemeTipi){
-        binding.tvBaslik.text = "Ödeme Başlığı: ${odemeTipi.Baslik}"
-        binding.tvPeriyot.text = "Ödemenin Periyodu: ${odemeTipi.Periyot}"
-        binding.tvPeriyotGunu.text = "Ödemenin Periyot Günü: ${odemeTipi.PeriyotGunu.toString()}"
-    }
+
 }

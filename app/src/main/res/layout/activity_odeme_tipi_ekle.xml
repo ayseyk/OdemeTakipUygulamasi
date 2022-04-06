@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Ödeme Tipi Ekle"
+            android:text="@string/odemeTipiEkle"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -47,20 +47,25 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/bar_background"
             android:ems="10"
             android:hint="Ödeme Tipi"
             android:inputType="textPersonName"
-            android:paddingStart="8dp"
+            android:paddingStart="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/spPeriyot"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spPeriyot"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="32dp"
-            android:paddingStart="8dp"
+            android:background="@drawable/bar_background"
+            android:minWidth="50dp"
+            android:paddingStart="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/etPeriyotGunu"
             app:layout_constraintEnd_toEndOf="@+id/etBaslik"
             app:layout_constraintStart_toStartOf="@+id/etBaslik"
             app:layout_constraintTop_toBottomOf="@+id/etBaslik" />
@@ -71,14 +76,26 @@
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
+            android:background="@drawable/bar_background"
             android:ems="10"
-            android:hint="periyot Günü"
+            android:hint="Periyot Günü"
             android:inputType="number"
-            android:paddingStart="8dp"
+            android:paddingStart="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/spPeriyot"
             app:layout_constraintStart_toStartOf="@+id/spPeriyot"
             app:layout_constraintTop_toBottomOf="@+id/spPeriyot" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/spPeriyot"
+            app:layout_constraintEnd_toEndOf="@+id/spPeriyot"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintStart_toStartOf="@+id/spPeriyot"
+            app:layout_constraintTop_toTopOf="@+id/spPeriyot"
+            app:srcCompat="@android:drawable/arrow_down_float" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -100,7 +117,7 @@
             android:layout_margin="16dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:text="Sil"
+            android:text="@string/sil"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
 
@@ -111,7 +128,7 @@
             android:layout_margin="16dp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:text="Kaydet"
+            android:text="@string/kaydet"
             android:textAllCaps="false"
             android:textColor="#FFFFFF" />
     </LinearLayout>

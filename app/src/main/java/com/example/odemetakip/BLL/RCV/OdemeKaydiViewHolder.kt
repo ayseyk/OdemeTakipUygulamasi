@@ -12,11 +12,8 @@ import com.example.odemetakip.R
 class OdemeKaydiViewHolder(itemView : View, itemClick : (position : Int)->Unit) : RecyclerView.ViewHolder(itemView) {
     var tvTutar : TextView
 
-
     init {
         tvTutar = itemView.findViewById(R.id.tvPeriyot)
-
-
 
         itemView.setOnClickListener { itemClick(adapterPosition) }
     }
@@ -28,7 +25,7 @@ class OdemeKaydiViewHolder(itemView : View, itemClick : (position : Int)->Unit) 
         var k = OdemeTipiLogic.idIleGetir(context,id)
         tvTutar.text = "${odemeKaydi.Tarih} Tarihinde ${odemeKaydi.Tutar
             .toString()} ₺ ödeme yapılmıştır."
-        //tvTarih.text = odemeKaydi.Tarih   odemeKaydi.Tutar.toString()
+
     }
 
 }

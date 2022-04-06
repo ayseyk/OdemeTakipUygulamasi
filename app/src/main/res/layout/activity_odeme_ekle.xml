@@ -35,7 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="112dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -52,13 +52,14 @@
             android:background="@drawable/bar_background"
             android:ems="10"
             android:hint="Tutar"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:paddingStart="8dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/etTarih"
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -66,27 +67,42 @@
             android:layout_marginBottom="32dp"
             android:background="@drawable/bar_background"
             android:ems="10"
-            android:hint="Tarih"
+            android:gravity="center_vertical"
             android:inputType="date"
             android:paddingStart="8dp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/etTutar"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/etTutar"
             app:layout_constraintTop_toBottomOf="@+id/etTutar" />
+
+        <ImageView
+            android:id="@+id/tarihView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etTarih"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etTarih"
+            app:srcCompat="@android:drawable/ic_menu_agenda" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnKaydetOdeme"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_background"
-        android:text="Kaydet"
+        android:text="@string/kaydet"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.728" />
+        app:layout_constraintVertical_bias="0.564" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

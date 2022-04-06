@@ -13,7 +13,7 @@ class DatabaseOpenHelper(context: Context, name : String, factory: SQLiteDatabas
                 "Periyot TEXT, PeriyotGunu INTEGER)"
         p0.execSQL(sorgu1)
 
-        val sorgu2 = "CREATE TABLE OdemeKaydi(/*Id INTEGER NOT NULL UNIQUE,*/OdemeTipi INTEGER " +
+        val sorgu2 = "CREATE TABLE OdemeKaydi(OdemeTipi INTEGER " +
                 "NOT NULL, Tarih TEXT NOT NULL, " +
                 "Tutar NUMERIC NOT NULL, FOREIGN KEY (OdemeTipi) REFERENCES OdemeTipi(Id))"
         p0.execSQL(sorgu2)

@@ -19,7 +19,6 @@ class OdemeKaydiOperation (context: Context) {
     fun open() {
         OdemeTakipDatabase = dbOpenHelper.writableDatabase
     }
-
     fun close() {
         if (OdemeTakipDatabase != null && OdemeTakipDatabase!!.isOpen) {
             OdemeTakipDatabase!!.close()
@@ -35,42 +34,32 @@ class OdemeKaydiOperation (context: Context) {
         open()
         OdemeTakipDatabase!!.insert("OdemeKaydi", null, cv)
         close()
-
     }
-
-    fun odemeKaydiGuncelle(odemeKaydi: OdemeKaydi) {
-        val cv = ContentValues()
-        //cv.put("Id",odemeKaydi.Id)
-        cv.put("OdemeTipi", odemeKaydi.OdemeTipi)
-        cv.put("Tarih", odemeKaydi.Tarih)
-        cv.put("Tutar", odemeKaydi.Tutar)
-
-        open()
-
-        OdemeTakipDatabase!!.update("OdemeKaydi", cv, "OdemeTipi = ? and Tarih = ?", arrayOf
-            (odemeKaydi.OdemeTipi.toString(), odemeKaydi.Tarih))
-
-        close()
+    private fun tumOdemeKaydiGetir(id:Int): Cursor {
+        val sorgu = "Select * from OdemeKaydi Where OdemeTipi = ?"
+        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(id.toString()))
     }
-
     fun odemeKaydiSil(odemeKaydi: OdemeKaydi) {
         open()
         OdemeTakipDatabase!!.delete("OdemeKaydi", "OdemeTipi = ? and Tarih = ?", arrayOf
             (odemeKaydi.OdemeTipi.toString(), odemeKaydi.Tarih))
         close()
     }
-
-    private fun tumOdemeKaydiGetir(id:Int): Cursor {
-        val sorgu = "Select * from OdemeKaydi Where OdemeTipi = ?"
-        var k = OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(id.toString()))
-        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(id.toString()))
-        println()
-    }
-
-    private fun tumOdemeKaydiGetirTip(odemeKaydi: OdemeKaydi): Cursor {
-        val sorgu = "Select * from OdemeKaydi Where OdemeTipi = ?"
-
-        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(odemeKaydi.OdemeTipi.toString()))
+    @SuppressLint("Range")
+    fun tumOdemeKaydiSilId(id: Int) {
+        var odemeKaydi: OdemeKaydi
+        open()
+        val c: Cursor = tumOdemeKaydiGetir(id)
+        if (c.moveToFirst()) {
+            do {
+                odemeKaydi = OdemeKaydi()
+                odemeKaydi.OdemeTipi = c.getInt(c.getColumnIndex("OdemeTipi"))
+                odemeKaydi.Tarih = c.getString(c.getColumnIndex("Tarih"))
+                odemeKaydi.Tutar = c.getDouble(c.getColumnIndex("Tutar"))
+                odemeKaydiSil(odemeKaydi)
+            } while (c.moveToNext())
+        }
+        close()
     }
 
     @SuppressLint("Range")
@@ -84,7 +73,6 @@ class OdemeKaydiOperation (context: Context) {
         if (c.moveToFirst()) {
             do {
                 odemeKaydi = OdemeKaydi()
-               // odemeKaydi.Id = c.getInt(0)//(c.getColumnIndex("Id"))
                 odemeKaydi.OdemeTipi = c.getInt(c.getColumnIndex("OdemeTipi"))
                 odemeKaydi.Tarih = c.getString(c.getColumnIndex("Tarih"))
                 odemeKaydi.Tutar = c.getDouble(c.getColumnIndex("Tutar"))

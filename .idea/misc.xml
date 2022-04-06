@@ -5,10 +5,11 @@
       <map>
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/drawable/bar_background.xml" value="0.16" />
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/drawable/button_background.xml" value="0.189" />
+        <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/drawable/spinner_background.xml" value="0.189" />
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/activity_detay_goruntule.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/activity_odeme_ekle.xml" value="0.22" />
-        <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/activity_odeme_tipi_ekle.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/activity_odeme_tipi_ekle.xml" value="0.22" />
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/rcv_odeme_kayit.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ayse_/android_project/OdemeTakip/app/src/main/res/layout/rcv_odeme_tip.xml" value="0.20416666666666666" />
       </map>
