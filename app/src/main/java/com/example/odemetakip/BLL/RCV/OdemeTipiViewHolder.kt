@@ -42,7 +42,7 @@ class OdemeTipiViewHolder(itemView : View, itemClick : (position : Int)->Unit, b
             tvPeriyot.isVisible = true
             tvPeriyot.text = odemeTipi.Periyot.toString()
         }
-        if(odemeTipi.PeriyotGunu == null || odemeTipi.Periyot == null){
+        if(odemeTipi.PeriyotGunu == null || odemeTipi.Periyot == null || odemeTipi.PeriyotGunu == 0){
             tvPeriyotGunu.isVisible = false
         }
         else{

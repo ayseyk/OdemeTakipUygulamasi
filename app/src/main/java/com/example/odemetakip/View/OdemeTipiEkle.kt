@@ -134,7 +134,7 @@ class OdemeTipiEkle : AppCompatActivity() {
             odemeTipi!!.Baslik = binding.etBaslik.text.toString()
             if(!OdemeTipiLogic.baslikKontrol(this, odemeTipi!!)) return
 
-            if(binding.etPeriyotGunu.text.isEmpty() && odemeTipi!!.Periyot == null) odemeTipi!!.PeriyotGunu = null
+            if(binding.etPeriyotGunu.text.toString() == "" || odemeTipi!!.Periyot == null) odemeTipi!!.PeriyotGunu = null
             else odemeTipi!!.PeriyotGunu = binding.etPeriyotGunu.text.toString().toInt()
 
             if(!OdemeTipiLogic.periyotGirisKontrol(odemeTipi!!,periyotlar.get(index))){

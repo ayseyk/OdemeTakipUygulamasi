@@ -56,11 +56,11 @@ class OdemeTipiLogic {
         }
         fun baslikIleGetir(context : Context,baslik : String) : OdemeTipi?{
             val yo = OdemeTipiOperation(context)
-            var odemeTipi =yo.baslikIleGetir(baslik)
+            var odemeTipi = yo.baslikIleGetir(baslik)
             return odemeTipi
         }
         fun baslikKontrol(context : Context,odemeTipi : OdemeTipi) : Boolean{
-            if(baslikIleGetir(context,odemeTipi.Baslik)?.Baslik == odemeTipi.Baslik ){
+            if(baslikIleGetir(context,odemeTipi.Baslik)?.Baslik?.toUpperCase() == odemeTipi.Baslik.toUpperCase() ){
                 hataGoster(context,"Girdiğiniz ödeme tipinde daha önceden kayıt yapılmıştır. Yeni" +
                         " bir başlık giriniz.")
                 return false

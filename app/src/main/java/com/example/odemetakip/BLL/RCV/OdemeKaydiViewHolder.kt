@@ -23,7 +23,7 @@ class OdemeKaydiViewHolder(itemView : View, itemClick : (position : Int)->Unit) 
     {
         var id = odemeKaydi.OdemeTipi
         var k = OdemeTipiLogic.idIleGetir(context,id)
-        tvTutar.text = "${odemeKaydi.Tarih} Tarihinde ${odemeKaydi.Tutar
+        tvTutar.text = "${odemeKaydi.Tarih} tarihinde ${odemeKaydi.Tutar
             .toString()} ₺ ödeme yapılmıştır."
 
     }

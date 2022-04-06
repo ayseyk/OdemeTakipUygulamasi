@@ -26,29 +26,15 @@ class OdemeTipiOperation (context: Context) {
             OdemeTakipDatabase!!.close()
         }
     }
-
     fun odemeTipiEkle(odemeTipi : OdemeTipi) : String?  {
         val cv = ContentValues()
         cv.put("Baslik", odemeTipi.Baslik)
         cv.put("Periyot", odemeTipi.Periyot)
         cv.put("PeriyotGunu", odemeTipi.PeriyotGunu)
         open()
-        try {
-             OdemeTakipDatabase!!.insert("OdemeTipi", null, cv)
-        }
-        catch (e: SQLiteConstraintException){
-            hata = e.message
-           // hata = "Bu ödeme tipinde başka bir kaydınız bulunmaktadır."
-        }
-        catch (e:SQLException){
-            hata =  "SQLiteException: ${e.message}"
-        }
-        catch (e:Exception){
-            hata =  "SQLiteException: ${e.message}"
-        }
-        finally {
-            close()
-        }
+        OdemeTakipDatabase!!.insert("OdemeTipi", null, cv)
+        close()
+
         return hata
     }
     fun odemeTipiSil(id : Int) {
