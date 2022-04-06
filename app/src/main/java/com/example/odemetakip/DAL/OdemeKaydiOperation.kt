@@ -26,30 +26,29 @@ class OdemeKaydiOperation (context: Context) {
         }
     }
 
-    fun odemeKaydiEkle(odemeKaydi: OdemeKaydi): Long {
+    fun odemeKaydiEkle(odemeKaydi: OdemeKaydi) {
         val cv = ContentValues()
-        //cv.put("Id",odemeKaydi.Id)
-        cv.put("OdemeTipi", odemeKaydi.OdemeTipi.Id)
+        cv.put("OdemeTipi", odemeKaydi.OdemeTipi)
         cv.put("Tarih", odemeKaydi.Tarih)
         cv.put("Tutar", odemeKaydi.Tutar)
 
         open()
-        val etkilenenKayit = OdemeTakipDatabase!!.insert("OdemeKaydi", null, cv)
+        OdemeTakipDatabase!!.insert("OdemeKaydi", null, cv)
         close()
-        return etkilenenKayit
+
     }
 
     fun odemeKaydiGuncelle(odemeKaydi: OdemeKaydi) {
         val cv = ContentValues()
         //cv.put("Id",odemeKaydi.Id)
-        cv.put("OdemeTipi", odemeKaydi.OdemeTipi.Id)
+        cv.put("OdemeTipi", odemeKaydi.OdemeTipi)
         cv.put("Tarih", odemeKaydi.Tarih)
         cv.put("Tutar", odemeKaydi.Tutar)
 
         open()
 
         OdemeTakipDatabase!!.update("OdemeKaydi", cv, "OdemeTipi = ? and Tarih = ?", arrayOf
-            (odemeKaydi.OdemeTipi.Id.toString(), odemeKaydi.Tarih))
+            (odemeKaydi.OdemeTipi.toString(), odemeKaydi.Tarih))
 
         close()
     }
@@ -57,42 +56,43 @@ class OdemeKaydiOperation (context: Context) {
     fun odemeKaydiSil(odemeKaydi: OdemeKaydi) {
         open()
         OdemeTakipDatabase!!.delete("OdemeKaydi", "OdemeTipi = ? and Tarih = ?", arrayOf
-            (odemeKaydi.OdemeTipi.Id.toString(), odemeKaydi.Tarih))
+            (odemeKaydi.OdemeTipi.toString(), odemeKaydi.Tarih))
         close()
     }
 
-    private fun tumOdemeKaydiGetir(): Cursor {
-        val sorgu = "Select * from OdemeKaydi"
-
-        return OdemeTakipDatabase!!.rawQuery(sorgu, null)
+    private fun tumOdemeKaydiGetir(id:Int): Cursor {
+        val sorgu = "Select * from OdemeKaydi Where OdemeTipi = ?"
+        var k = OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(id.toString()))
+        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(id.toString()))
+        println()
     }
 
     private fun tumOdemeKaydiGetirTip(odemeKaydi: OdemeKaydi): Cursor {
         val sorgu = "Select * from OdemeKaydi Where OdemeTipi = ?"
 
-        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(odemeKaydi.OdemeTipi.Id.toString()))
+        return OdemeTakipDatabase!!.rawQuery(sorgu, arrayOf(odemeKaydi.OdemeTipi.toString()))
     }
 
     @SuppressLint("Range")
-    fun odemeKaydiGetir(): ArrayList<OdemeKaydi> {
+    fun odemeKaydiGetir(id:Int): ArrayList<OdemeKaydi> {
         val oKaydiList = ArrayList<OdemeKaydi>()
         var odemeKaydi: OdemeKaydi
 
         open()
-        var c: Cursor = tumOdemeKaydiGetir()
+        var c: Cursor = tumOdemeKaydiGetir(id)
 
         if (c.moveToFirst()) {
             do {
                 odemeKaydi = OdemeKaydi()
                // odemeKaydi.Id = c.getInt(0)//(c.getColumnIndex("Id"))
-                odemeKaydi.OdemeTipi.Id = c.getInt(c.getColumnIndex("OdemeTipi"))
+                odemeKaydi.OdemeTipi = c.getInt(c.getColumnIndex("OdemeTipi"))
                 odemeKaydi.Tarih = c.getString(c.getColumnIndex("Tarih"))
                 odemeKaydi.Tutar = c.getDouble(c.getColumnIndex("Tutar"))
                 oKaydiList.add(odemeKaydi)
             } while (c.moveToNext())
         }
-
         close()
+        println()
         return oKaydiList
     }
 }

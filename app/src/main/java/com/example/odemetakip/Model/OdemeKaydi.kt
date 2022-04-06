@@ -5,7 +5,7 @@ import kotlin.properties.Delegates
 
 class OdemeKaydi : Serializable {
     //var Id by Delegates.notNull<Int>()
-    var OdemeTipi by Delegates.notNull<OdemeTipi>()
+    var OdemeTipi by Delegates.notNull<Int>()
     var Tutar : Double? = null
     var Tarih : String? = null
 }

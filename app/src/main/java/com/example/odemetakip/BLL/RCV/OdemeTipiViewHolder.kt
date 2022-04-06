@@ -32,7 +32,22 @@ class OdemeTipiViewHolder(itemView : View, itemClick : (position : Int)->Unit, b
     {
         tvBaslik.text = odemeTipi.Baslik
         tvPeriyot.text = odemeTipi.Periyot
-        tvPeriyotGunu.text = odemeTipi.PeriyotGunu.toString()
+        tvPeriyotGunu.text = "${odemeTipi.PeriyotGunu.toString()}. gün"
+       /* if(odemeTipi.Periyot != null)
+        {
+            tvPeriyot.text = odemeTipi.Periyot
+        }
+        else {
+            tvPeriyot.text = ""
+        }
+        if(odemeTipi.PeriyotGunu !=null)
+        {
+            tvPeriyotGunu.text = odemeTipi.PeriyotGunu.toString()
+        }
+        else{
+            tvPeriyotGunu.text = ""
+        }*/
+
     }
 }
 

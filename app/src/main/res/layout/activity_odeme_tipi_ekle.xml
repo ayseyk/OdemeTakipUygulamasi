@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvDuzenleEkle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -55,12 +55,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <Spinner
             android:id="@+id/spPeriyot"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@drawable/bar_background"
             android:paddingStart="8dp"
             app:layout_constraintEnd_toEndOf="@+id/etBaslik"
             app:layout_constraintStart_toStartOf="@+id/etBaslik"
@@ -72,7 +71,6 @@
             android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
-            android:background="@drawable/bar_background"
             android:ems="10"
             android:hint="periyot Günü"
             android:inputType="number"
@@ -95,21 +93,27 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
         app:layout_constraintVertical_bias="0.479">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:text="Sil" />
+            android:background="@drawable/button_background"
+            android:text="Sil"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnKaydetTip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_weight="1"
-            android:text="Kaydet" />
+            android:background="@drawable/button_background"
+            android:text="Kaydet"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
