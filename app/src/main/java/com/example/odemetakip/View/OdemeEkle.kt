@@ -59,7 +59,7 @@ class OdemeEkle : AppCompatActivity() {
         odemeKaydi.OdemeTipi = tipId!!
 
         if(binding.etTutar.text.isEmpty()){
-            OdemeKaydiLogic.hataGoster(this,"Ödeme tutarı boş bırakılamaz.")
+            OdemeKaydiLogic.hataGoster(this,"Ödeme Tutarı kısmı boş bırakılamaz.")
         }else{
             odemeKaydi.Tutar = binding.etTutar.text.toString().toDouble()
         }

@@ -127,7 +127,7 @@ class OdemeTipiEkle : AppCompatActivity() {
 
     fun yeniTipEkle() {
         if (binding.etBaslik.text.isEmpty()){
-            OdemeTipiLogic.hataGoster(this,"Ödeme başlığı kısmı boş bırakılamaz.")
+            OdemeTipiLogic.hataGoster(this,"Ödeme Tipi kısmı boş bırakılamaz.")
         }
         else
         {
