@@ -60,6 +60,7 @@ class OdemeEkle : AppCompatActivity() {
 
         if(binding.etTutar.text.isEmpty()){
             OdemeKaydiLogic.hataGoster(this,"Ödeme Tutarı kısmı boş bırakılamaz.")
+            return
         }else{
             odemeKaydi.Tutar = binding.etTutar.text.toString().toDouble()
         }
